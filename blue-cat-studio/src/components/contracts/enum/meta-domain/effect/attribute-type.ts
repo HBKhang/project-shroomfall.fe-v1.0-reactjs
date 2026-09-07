@@ -1,0 +1,42 @@
+/**
+ * This is a TypeGen auto-generated file.
+ * Any changes made to this file can be lost when this file is regenerated.
+ */
+
+export enum AttributeType {
+  Health = "Health",
+  Energy = "Energy",
+  EnergyRestore = "EnergyRestore",
+  EnergyConsume = "EnergyConsume",
+  HealthRestore = "HealthRestore",
+  PhysicalDamage = "PhysicalDamage",
+  FireDamage = "FireDamage",
+  IceDamage = "IceDamage",
+  EarthDamage = "EarthDamage",
+  DarkDamage = "DarkDamage",
+  LightDamage = "LightDamage",
+  PhysicalPower = "PhysicalPower",
+  FirePower = "FirePower",
+  IcePower = "IcePower",
+  EarthPower = "EarthPower",
+  DarkPower = "DarkPower",
+  LightPower = "LightPower",
+  MoveSpeed = "MoveSpeed",
+  PhysicalPenetration = "PhysicalPenetration",
+  FirePenetration = "FirePenetration",
+  IcePenetration = "IcePenetration",
+  EarthPenetration = "EarthPenetration",
+  DarkPenetration = "DarkPenetration",
+  LightPenetration = "LightPenetration",
+  PhysicalResistance = "PhysicalResistance",
+  FireResistance = "FireResistance",
+  IceResistance = "IceResistance",
+  EarthResistance = "EarthResistance",
+  DarkResistance = "DarkResistance",
+  LightResistance = "LightResistance",
+  CooldownReduction = "CooldownReduction",
+  Lucky = "Lucky",
+  LifeSteal = "LifeSteal",
+  CriticalChance = "CriticalChance",
+  BlockChance = "BlockChance",
+}
