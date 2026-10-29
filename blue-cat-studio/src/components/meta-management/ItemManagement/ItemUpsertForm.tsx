@@ -186,6 +186,8 @@ export const ItemUpsertForm: React.FC<ItemUpsertFormProps> = ({ item, onClose })
         : undefined,
     };
 
+    console.debug('[ItemUpsertForm] ItemDefinitionDTO payload:', payload);
+
     upsertItem(payload as any, {
       onSuccess: () => {
         if (onClose) onClose();
