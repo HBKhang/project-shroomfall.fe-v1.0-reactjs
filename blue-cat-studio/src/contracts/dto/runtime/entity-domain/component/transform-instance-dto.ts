@@ -4,13 +4,13 @@
  */
 
 import type { ComponentInstanceDTO } from "../../../abstraction/component-instance-dto";
-import type { Vector2DTO } from "../../../common/vector2dto";
+import type { Vector2 } from "./vector2";
 import type { EntityDirection } from "../../../../enum/entity-domain/entity-direction";
 import type { EntityAction } from "../../../../enum/entity-domain/entity-action";
 
 export interface TransformInstanceDTO extends ComponentInstanceDTO {
   layerZ: number;
-  position: Vector2DTO;
+  position: Vector2;
   facingDirection: EntityDirection;
   currentAction: EntityAction;
 }

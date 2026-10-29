@@ -4,8 +4,8 @@
  */
 
 import type { ComponentDefinitionDTO } from "../../../abstraction/component-definition-dto";
-import type { HSVDTO } from "../../../common/hsvdto";
+import type { HSV } from "./hsv";
 
 export interface AppearanceDefinitionDTO extends ComponentDefinitionDTO {
-  skinColor: HSVDTO;
+  skinColor: HSV;
 }

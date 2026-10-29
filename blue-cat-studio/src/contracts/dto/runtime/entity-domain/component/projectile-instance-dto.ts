@@ -4,9 +4,9 @@
  */
 
 import type { ComponentInstanceDTO } from "../../../abstraction/component-instance-dto";
-import type { Vector2DTO } from "../../../common/vector2dto";
+import type { Vector2 } from "./vector2";
 
 export interface ProjectileInstanceDTO extends ComponentInstanceDTO {
   velocity: number;
-  direction: Vector2DTO;
+  direction: Vector2;
 }

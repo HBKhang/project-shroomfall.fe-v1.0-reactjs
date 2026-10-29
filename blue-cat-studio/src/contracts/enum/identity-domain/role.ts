@@ -7,4 +7,6 @@ export enum Role {
   Designer = "Designer",
   Admin = "Admin",
   Player = "Player",
+  GameMaster = "GameMaster",
+  Moderator = "Moderator",
 }

@@ -12,7 +12,9 @@ import type { EquippableConfigDTO } from "./equippable-config-dto";
 import type { PlaceableConfigDTO } from "./placeable-config-dto";
 import type { RangedConfigDTO } from "./ranged-config-dto";
 import type { MeleeConfigDTO } from "./melee-config-dto";
+import type { TradingConfigDTO } from "./trading-config-dto";
 import type { CostConfigDTO } from "./cost-config-dto";
+import type { RequiredMaterialDTO } from "./required-material-dto";
 
 export interface ItemDefinitionDTO {
   id: string;
@@ -27,5 +29,7 @@ export interface ItemDefinitionDTO {
   placeableConfig?: PlaceableConfigDTO;
   rangedConfig?: RangedConfigDTO;
   meleeConfig?: MeleeConfigDTO;
+  tradingConfig?: TradingConfigDTO;
   costConfig: CostConfigDTO;
+  requiredMaterials: RequiredMaterialDTO[];
 }

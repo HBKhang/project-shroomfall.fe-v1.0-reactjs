@@ -6,4 +6,6 @@
 export interface TokenDTO {
   accessToken: string;
   refreshToken: string;
+  accessExpiry: Date;
+  refreshExpiry: Date;
 }

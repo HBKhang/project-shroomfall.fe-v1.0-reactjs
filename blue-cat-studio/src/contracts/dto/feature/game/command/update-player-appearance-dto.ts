@@ -3,9 +3,9 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-import type { HSVDTO } from "../../../common/hsvdto";
+import type { HSV } from "./hsv";
 
 export interface UpdatePlayerAppearanceDTO {
   skinID: string;
-  skinColor: HSVDTO;
+  skinColor: HSV;
 }

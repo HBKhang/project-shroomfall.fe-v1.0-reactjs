@@ -6,5 +6,4 @@
 export enum RoomType {
   PersonalSpace = "PersonalSpace",
   PublicSpace = "PublicSpace",
-  CombatSpace = "CombatSpace",
 }

@@ -13,7 +13,7 @@ export interface UserDTO {
   gender: string;
   email: string;
   passwordHash: string;
-  steamID: string;
+  googleID: string;
   refreshToken: string;
   refreshTokenExpiry: Date;
   createdAt: Date;

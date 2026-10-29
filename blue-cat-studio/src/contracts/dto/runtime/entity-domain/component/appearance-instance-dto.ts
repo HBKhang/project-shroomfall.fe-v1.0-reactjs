@@ -4,9 +4,9 @@
  */
 
 import type { ComponentInstanceDTO } from "../../../abstraction/component-instance-dto";
-import type { HSVDTO } from "../../../common/hsvdto";
+import type { HSV } from "./hsv";
 
 export interface AppearanceInstanceDTO extends ComponentInstanceDTO {
   skinID: string;
-  skinColor: HSVDTO;
+  skinColor: HSV;
 }
