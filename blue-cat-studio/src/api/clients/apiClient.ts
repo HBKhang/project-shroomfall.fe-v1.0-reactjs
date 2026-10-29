@@ -50,7 +50,7 @@ apiClient.interceptors.response.use(
     if (status === 401 && originalRequest && !originalRequest._retry) {
       
       // If refresh or login itself returns 401, force full session wipe and kick out
-      if (originalRequest.url?.includes('/identity/refresh') || originalRequest.url?.includes('/identity/login')) {
+      if (originalRequest.url?.includes('/management/identity/refresh') || originalRequest.url?.includes('/management/identity/login')) {
         handleSessionExpiration(error);
         return Promise.reject(error);
       }
@@ -79,7 +79,7 @@ apiClient.interceptors.response.use(
 
         // Use a clean axios instance to avoid recursive interceptor loops on /refresh
         const { data } = await axios.post<TokenDTO>(
-          `${import.meta.env.VITE_API_BASE_URL}/identity/refresh`, 
+          `${import.meta.env.VITE_API_BASE_URL}/management/identity/refresh`, 
           refreshPayload,
           { headers: { 'Content-Type': 'application/json' } }
         );

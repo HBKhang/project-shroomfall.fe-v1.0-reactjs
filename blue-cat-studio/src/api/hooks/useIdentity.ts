@@ -19,7 +19,7 @@ export const useIdentity = () => {
   // 1. Login Mutation
   const loginMutation = useMutation({
     mutationFn: async (dto: LoginDTO): Promise<TokenDTO> => {
-      const { data } = await apiClient.post<TokenDTO>('/identity/login', dto);
+      const { data } = await apiClient.post<TokenDTO>('/management/identity/login', dto);
       return data;
     },
     onSuccess: (data) => handleAuthSuccess(data),
@@ -28,7 +28,7 @@ export const useIdentity = () => {
   // 2. Register Mutation
   const registerMutation = useMutation({
     mutationFn: async (dto: RegisterDTO): Promise<TokenDTO> => {
-      const { data } = await apiClient.post<TokenDTO>('/identity/register', dto);
+      const { data } = await apiClient.post<TokenDTO>('/management/identity/register', dto);
       return data;
     },
     onSuccess: (data) => handleAuthSuccess(data),
@@ -37,7 +37,7 @@ export const useIdentity = () => {
   // 3. Steam Auth Mutation
   const steamAuthMutation = useMutation({
     mutationFn: async (dto: SteamAuthDTO): Promise<TokenDTO> => {
-      const { data } = await apiClient.post<TokenDTO>('/identity/steam', dto);
+      const { data } = await apiClient.post<TokenDTO>('/management/identity/google', dto);
       return data;
     },
     onSuccess: (data) => handleAuthSuccess(data),
