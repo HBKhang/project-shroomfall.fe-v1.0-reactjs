@@ -30,123 +30,123 @@ export const useAdminRealtime = (
 ) => {
     const queryClient = useQueryClient();
 
-    useEffect(() => {
-        const connection = adminSignalRClient.getConnection();
+    // useEffect(() => {
+    //     const connection = adminSignalRClient.getConnection();
 
-        const handlers = {
-            handleRoomState: (payload: RoomStateChangedDTO) => {
-                queryClient.setQueryData<RoomSpatialUI[]>(
-                    ADMIN_QUERY_KEYS.ROOM_SPATIAL_LIST,
-                    (old) => {
-                        console.log("Payload:", payload.roomSpatialID);
+    //     const handlers = {
+    //         handleRoomState: (payload: RoomStateChangedDTO) => {
+    //             queryClient.setQueryData<RoomSpatialUI[]>(
+    //                 ADMIN_QUERY_KEYS.ROOM_SPATIAL_LIST,
+    //                 (old) => {
+    //                     console.log("Payload:", payload.roomSpatialID);
 
-                        old?.forEach((r) => {
-                            console.log("Room:", r.id);
-                        });
+    //                     old?.forEach((r) => {
+    //                         console.log("Room:", r.id);
+    //                     });
 
-                        return (
-                            old?.map((r) =>
-                                r.id === payload.roomSpatialID
-                                    ? {
-                                        ...r,
-                                        runtimeState: payload.newState,
-                                    }
-                                    : r
-                            ) ?? []
-                        );
-                    }
-                );
-            },
+    //                     return (
+    //                         old?.map((r) =>
+    //                             r.id === payload.roomSpatialID
+    //                                 ? {
+    //                                     ...r,
+    //                                     runtimeState: payload.newState,
+    //                                 }
+    //                                 : r
+    //                         ) ?? []
+    //                     );
+    //                 }
+    //             );
+    //         },
 
-            handleRoomSync: (payload: RoomSyncChangedDTO) => {
-                queryClient.invalidateQueries({
-                    queryKey: ADMIN_QUERY_KEYS.ROOM_INSTANCE_DETAILS(payload.roomSpatial.id),
-                });
+    //         handleRoomSync: (payload: RoomSyncChangedDTO) => {
+    //             queryClient.invalidateQueries({
+    //                 queryKey: ADMIN_QUERY_KEYS.ROOM_INSTANCE_DETAILS(payload.roomSpatial.id),
+    //             });
 
-                queryClient.invalidateQueries({
-                    queryKey: ADMIN_QUERY_KEYS.ROOM_SPATIAL_LIST,
-                });
-            },
+    //             queryClient.invalidateQueries({
+    //                 queryKey: ADMIN_QUERY_KEYS.ROOM_SPATIAL_LIST,
+    //             });
+    //         },
 
-            handleTelemetry: (payload: TelemetryEventDTO) => {
-                onActivity?.({ type: 'TELEMETRY', payload });
-            },
+    //         handleTelemetry: (payload: TelemetryEventDTO) => {
+    //             onActivity?.({ type: 'TELEMETRY', payload });
+    //         },
 
-            handleConnection: (payload: UserConnectionChangedDTO) => {
-                queryClient.setQueryData<UserConnectionUI[]>(
-                    ADMIN_QUERY_KEYS.USER_CONNECTIONS,
-                    (old = []) => {
-                        const existing = old.find(x => x.userID === payload.userID);
+    //         handleConnection: (payload: UserConnectionChangedDTO) => {
+    //             queryClient.setQueryData<UserConnectionUI[]>(
+    //                 ADMIN_QUERY_KEYS.USER_CONNECTIONS,
+    //                 (old = []) => {
+    //                     const existing = old.find(x => x.userID === payload.userID);
 
-                        if (existing) {
-                            return old.map(x =>
-                                x.userID === payload.userID
-                                    ? {
-                                        ...x,
-                                        connectionID: payload.connectionID,
-                                    }
-                                    : x
-                            );
-                        }
+    //                     if (existing) {
+    //                         return old.map(x =>
+    //                             x.userID === payload.userID
+    //                                 ? {
+    //                                     ...x,
+    //                                     connectionID: payload.connectionID,
+    //                                 }
+    //                                 : x
+    //                         );
+    //                     }
 
-                        return [...old, payload];
-                    }
-                );
+    //                     return [...old, payload];
+    //                 }
+    //             );
 
-                onActivity?.({
-                    type: 'CONNECTION',
-                    payload,
-                });
-            },
+    //             onActivity?.({
+    //                 type: 'CONNECTION',
+    //                 payload,
+    //             });
+    //         },
 
-            handleSession: (payload: UserSessionChangedDTO) => {
-                queryClient.setQueryData<UserSessionUI[]>(
-                    ADMIN_QUERY_KEYS.USER_SESSIONS,
-                    (old = []) => {
-                        const existing = old.find(x => x.userID === payload.userID);
+    //         handleSession: (payload: UserSessionChangedDTO) => {
+    //             queryClient.setQueryData<UserSessionUI[]>(
+    //                 ADMIN_QUERY_KEYS.USER_SESSIONS,
+    //                 (old = []) => {
+    //                     const existing = old.find(x => x.userID === payload.userID);
 
-                        if (existing) {
-                            return old.map(x =>
-                                x.userID === payload.userID
-                                    ? {
-                                        ...x,
-                                        playerInstanceID: payload.playerInstanceID,
-                                    }
-                                    : x
-                            );
-                        }
+    //                     if (existing) {
+    //                         return old.map(x =>
+    //                             x.userID === payload.userID
+    //                                 ? {
+    //                                     ...x,
+    //                                     playerInstanceID: payload.playerInstanceID,
+    //                                 }
+    //                                 : x
+    //                         );
+    //                     }
 
-                        return [...old, payload];
-                    }
-                );
+    //                     return [...old, payload];
+    //                 }
+    //             );
 
-                onActivity?.({
-                    type: 'SESSION',
-                    payload,
-                });
-            },
-        };
+    //             onActivity?.({
+    //                 type: 'SESSION',
+    //                 payload,
+    //             });
+    //         },
+    //     };
 
-        connection.off('OnRoomStateChanged');
-        connection.off('OnRoomSyncChanged');
-        connection.off('OnTelemetrySended');
-        connection.off('OnUserConnectionChanged');
-        connection.off('OnUserSessionChanged');
+    //     connection.off('OnRoomStateChanged');
+    //     connection.off('OnRoomSyncChanged');
+    //     connection.off('OnTelemetrySended');
+    //     connection.off('OnUserConnectionChanged');
+    //     connection.off('OnUserSessionChanged');
 
-        connection.on('OnRoomStateChanged', handlers.handleRoomState);
-        connection.on('OnRoomSyncChanged', handlers.handleRoomSync);
-        connection.on('OnTelemetrySended', handlers.handleTelemetry);
-        connection.on('OnUserConnectionChanged', handlers.handleConnection);
-        connection.on('OnUserSessionChanged', handlers.handleSession);
+    //     connection.on('OnRoomStateChanged', handlers.handleRoomState);
+    //     connection.on('OnRoomSyncChanged', handlers.handleRoomSync);
+    //     connection.on('OnTelemetrySended', handlers.handleTelemetry);
+    //     connection.on('OnUserConnectionChanged', handlers.handleConnection);
+    //     connection.on('OnUserSessionChanged', handlers.handleSession);
 
-        adminSignalRClient.start();
+    //     adminSignalRClient.start();
 
-        return () => {
-            connection.off('OnRoomStateChanged', handlers.handleRoomState);
-            connection.off('OnRoomSyncChanged', handlers.handleRoomSync);
-            connection.off('OnTelemetrySended', handlers.handleTelemetry);
-            connection.off('OnUserConnectionChanged', handlers.handleConnection);
-            connection.off('OnUserSessionChanged', handlers.handleSession);
-        };
-    }, [queryClient, onActivity]);
+    //     return () => {
+    //         connection.off('OnRoomStateChanged', handlers.handleRoomState);
+    //         connection.off('OnRoomSyncChanged', handlers.handleRoomSync);
+    //         connection.off('OnTelemetrySended', handlers.handleTelemetry);
+    //         connection.off('OnUserConnectionChanged', handlers.handleConnection);
+    //         connection.off('OnUserSessionChanged', handlers.handleSession);
+    //     };
+    // }, [queryClient, onActivity]);
 };

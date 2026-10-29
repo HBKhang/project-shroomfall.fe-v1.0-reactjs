@@ -54,13 +54,13 @@ const createFileUploadFormData = (file: File): FormData => {
 // ==========================================
 
 /**
- * Fetch All Effects (GET /api/design/effects)
+ * Fetch All Effects (GET /management/design/effects)
  */
 export const useDesignAllEffects = (queries: EffectDefinitionQueryDTO) => {
   return useQuery({
     queryKey: DESIGN_QUERY_KEYS.EFFECTS_LIST(queries),
     queryFn: async (): Promise<PagedResponseDTO<EffectDefinitionDTO>> => {
-      const { data } = await apiClient.get<PagedResponseDTO<EffectDefinitionDTO>>('/design/effects', {
+      const { data } = await apiClient.get<PagedResponseDTO<EffectDefinitionDTO>>('/management/design/effects', {
         params: queries,
       });
       return data;
@@ -69,13 +69,13 @@ export const useDesignAllEffects = (queries: EffectDefinitionQueryDTO) => {
 };
 
 /**
- * Fetch All Entities (GET /api/design/entities)
+ * Fetch All Entities (GET /management/design/entities)
  */
 export const useDesignAllEntities = (queries: EntityDefinitionQueryDTO) => {
   return useQuery({
     queryKey: DESIGN_QUERY_KEYS.ENTITIES_LIST(queries),
     queryFn: async (): Promise<PagedResponseDTO<EntityDefinitionDTO>> => {
-      const { data } = await apiClient.get<PagedResponseDTO<EntityDefinitionDTO>>('/design/entities', {
+      const { data } = await apiClient.get<PagedResponseDTO<EntityDefinitionDTO>>('/management/design/entities', {
         params: queries,
       });
       return data;
@@ -84,13 +84,13 @@ export const useDesignAllEntities = (queries: EntityDefinitionQueryDTO) => {
 };
 
 /**
- * Fetch Entity Definition Detail (GET /api/design/entities/{id})
+ * Fetch Entity Definition Detail (GET /management/design/entities/{id})
  */
 export const useDesignEntityDetail = (id: string) => {
   return useQuery({
     queryKey: DESIGN_QUERY_KEYS.ENTITY_DETAIL(id),
     queryFn: async (): Promise<EntityDefinitionDTO> => {
-      const { data } = await apiClient.get<EntityDefinitionDTO>(`/design/entities/${id}`);
+      const { data } = await apiClient.get<EntityDefinitionDTO>(`/management/design/entities/${id}`);
       return data;
     },
     enabled: !!id,
@@ -98,13 +98,13 @@ export const useDesignEntityDetail = (id: string) => {
 };
 
 /**
- * Fetch All Items (GET /api/design/items)
+ * Fetch All Items (GET /management/design/items)
  */
 export const useDesignAllItems = (queries: ItemDefinitionQueryDTO) => {
   return useQuery({
     queryKey: DESIGN_QUERY_KEYS.ITEMS_LIST(queries),
     queryFn: async (): Promise<PagedResponseDTO<ItemDefinitionDTO>> => {
-      const { data } = await apiClient.get<PagedResponseDTO<ItemDefinitionDTO>>('/design/items', {
+      const { data } = await apiClient.get<PagedResponseDTO<ItemDefinitionDTO>>('/management/design/items', {
         params: queries,
       });
       return data;
@@ -113,26 +113,26 @@ export const useDesignAllItems = (queries: ItemDefinitionQueryDTO) => {
 };
 
 /**
- * Fetch All Locales (GET /api/design/locales)
+ * Fetch All Locales (GET /management/design/locales)
  */
 export const useDesignAllLocales = () => {
   return useQuery({
     queryKey: DESIGN_QUERY_KEYS.LOCALES,
     queryFn: async (): Promise<LocaleDTO[]> => {
-      const { data } = await apiClient.get<LocaleDTO[]>('/design/locales');
+      const { data } = await apiClient.get<LocaleDTO[]>('/management/design/locales');
       return data;
     },
   });
 };
 
 /**
- * Fetch Localization Entries (GET /api/design/localization-entries)
+ * Fetch Localization Entries (GET /management/design/localization-entries)
  */
 export const useDesignLocalizationEntries = (queries: LocalizationEntryQueryDTO) => {
   return useQuery({
     queryKey: DESIGN_QUERY_KEYS.LOCALIZATION_ENTRIES_LIST(queries),
     queryFn: async (): Promise<PagedResponseDTO<LocalizationEntryDTO>> => {
-      const { data } = await apiClient.get<PagedResponseDTO<LocalizationEntryDTO>>('/design/localization-entries', {
+      const { data } = await apiClient.get<PagedResponseDTO<LocalizationEntryDTO>>('/management/design/localization-entries', {
         params: queries,
       });
       return data;
@@ -141,13 +141,13 @@ export const useDesignLocalizationEntries = (queries: LocalizationEntryQueryDTO)
 };
 
 /**
- * Fetch All Rooms (GET /api/design/rooms)
+ * Fetch All Rooms (GET /management/design/rooms)
  */
 export const useDesignAllRooms = (queries: RoomDefinitionQueryDTO) => {
   return useQuery({
     queryKey: DESIGN_QUERY_KEYS.ROOMS_LIST(queries),
     queryFn: async (): Promise<PagedResponseDTO<RoomDefinitionDTO>> => {
-      const { data } = await apiClient.get<PagedResponseDTO<RoomDefinitionDTO>>('/design/rooms', {
+      const { data } = await apiClient.get<PagedResponseDTO<RoomDefinitionDTO>>('/management/design/rooms', {
         params: queries,
       });
       return data;
@@ -160,14 +160,14 @@ export const useDesignAllRooms = (queries: RoomDefinitionQueryDTO) => {
 // ==========================================
 
 /**
- * Import Effect Definitions File (POST /api/design/effect-definition/upload)
+ * Import Effect Definitions File (POST /management/design/effect-definition/upload)
  */
 export const useImportEffectDefinitions = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (file: File): Promise<void> => {
-      await apiClient.post('/design/effect-definition/upload', createFileUploadFormData(file), {
+      await apiClient.post('/management/design/effect-definition/upload', createFileUploadFormData(file), {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
     },
@@ -178,14 +178,14 @@ export const useImportEffectDefinitions = () => {
 };
 
 /**
- * Import Entity Definitions File (POST /api/design/entity-definition/upload)
+ * Import Entity Definitions File (POST /management/design/entity-definition/upload)
  */
 export const useImportEntityDefinitions = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (file: File): Promise<void> => {
-      await apiClient.post('/design/entity-definition/upload', createFileUploadFormData(file), {
+      await apiClient.post('/management/design/entity-definition/upload', createFileUploadFormData(file), {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
     },
@@ -196,14 +196,14 @@ export const useImportEntityDefinitions = () => {
 };
 
 /**
- * Import Item Definitions File (POST /api/design/item-definition/upload)
+ * Import Item Definitions File (POST /management/design/item-definition/upload)
  */
 export const useImportItemDefinitions = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (file: File): Promise<void> => {
-      await apiClient.post('/design/item-definition/upload', createFileUploadFormData(file), {
+      await apiClient.post('/management/design/item-definition/upload', createFileUploadFormData(file), {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
     },
@@ -214,14 +214,14 @@ export const useImportItemDefinitions = () => {
 };
 
 /**
- * Import Room Definition File (POST /api/design/room-definition/upload)
+ * Import Room Definition File (POST /management/design/room-definition/upload)
  */
 export const useImportRoomDefinition = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (file: File): Promise<void> => {
-      await apiClient.post('/design/room-definition/upload', createFileUploadFormData(file), {
+      await apiClient.post('/management/design/room-definition/upload', createFileUploadFormData(file), {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
     },
@@ -236,14 +236,14 @@ export const useImportRoomDefinition = () => {
 // ==========================================
 
 /**
- * Update Definition (POST /api/design/definition)
+ * Update Definition (POST /management/design/definition)
  */
 export const useUpdateDesignDefinition = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (dto: UpdateDefinitionDTO): Promise<void> => {
-      await apiClient.post('/design/definition', dto);
+      await apiClient.post('/management/design/definition', dto);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['design'] });
@@ -252,14 +252,14 @@ export const useUpdateDesignDefinition = () => {
 };
 
 /**
- * Update Single Localization Entry (POST /api/design/localization-entry)
+ * Update Single Localization Entry (POST /management/design/localization-entry)
  */
 export const useUpdateLocalizationEntry = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (dto: LocalizationEntryDTO): Promise<void> => {
-      await apiClient.post('/design/localization-entry', dto);
+      await apiClient.post('/management/design/localization-entry', dto);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -270,14 +270,14 @@ export const useUpdateLocalizationEntry = () => {
 };
 
 /**
- * Upsert Effect Definition (POST /api/design/effect-definition)
+ * Upsert Effect Definition (POST /management/design/effect-definition)
  */
 export const useUpsertEffectDefinition = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (dto: EffectDefinitionDTO): Promise<void> => {
-      await apiClient.post('/design/effect-definition', dto);
+      await apiClient.post('/management/design/effect-definition', dto);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: DESIGN_QUERY_KEYS.EFFECTS });
@@ -287,14 +287,14 @@ export const useUpsertEffectDefinition = () => {
 };
 
 /**
- * Upsert Entity Definition (POST /api/design/entity-definition)
+ * Upsert Entity Definition (POST /management/design/entity-definition)
  */
 export const useUpsertEntityDefinition = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (dto: EntityDefinitionDTO): Promise<void> => {
-      await apiClient.post('/design/entity-definition', dto);
+      await apiClient.post('/management/design/entity-definition', dto);
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: DESIGN_QUERY_KEYS.ENTITIES });
@@ -311,14 +311,14 @@ export const useUpsertEntityDefinition = () => {
 };
 
 /**
- * Upsert Item Definition (POST /api/design/item-definition)
+ * Upsert Item Definition (POST /management/design/item-definition)
  */
 export const useUpsertItemDefinition = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (dto: ItemDefinitionDTO): Promise<void> => {
-      await apiClient.post('/design/item-definition', dto);
+      await apiClient.post('/management/design/item-definition', dto);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: DESIGN_QUERY_KEYS.ITEMS });
@@ -332,13 +332,13 @@ export const useUpsertItemDefinition = () => {
 // ==========================================
 
 /**
- * User Refresh / Get Snapshot (GET /api/design/{version})
+ * User Refresh / Get Snapshot (GET /management/design/{version})
  */
 export const useDesignSnapshot = (version: string) => {
   return useQuery({
     queryKey: DESIGN_QUERY_KEYS.SNAPSHOT(version),
     queryFn: async (): Promise<DefinitionSnapshotDTO | null> => {
-      const { data } = await apiClient.get<DefinitionSnapshotDTO | null>(`/design/${version}`);
+      const { data } = await apiClient.get<DefinitionSnapshotDTO | null>(`/management/design/${version}`);
       return data;
     },
     enabled: !!version,

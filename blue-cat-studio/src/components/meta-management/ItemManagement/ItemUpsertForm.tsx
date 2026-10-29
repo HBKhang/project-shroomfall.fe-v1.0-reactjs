@@ -155,6 +155,13 @@ export const ItemUpsertForm: React.FC<ItemUpsertFormProps> = ({ item, onClose })
         method: enumToIndex(ItemConsumptionMethod, formData.costConfig.method) as any,
       },
 
+      tradingConfig: formData.tradingConfig?.nPCSellerID.trim()
+        ? { ...formData.tradingConfig, nPCSellerID: formData.tradingConfig.nPCSellerID.trim() }
+        : undefined,
+      requiredMaterials: formData.requiredMaterials.filter(material =>
+        material.itemDefinitionID.trim() && material.materialItemDefinitionID.trim() && material.quantity > 0
+      ),
+
       consumableConfig: currentCat === ItemCategory.Consumable && formData.consumableConfig
         ? formData.consumableConfig
         : undefined,
@@ -325,6 +332,57 @@ export const ItemUpsertForm: React.FC<ItemUpsertFormProps> = ({ item, onClose })
             costConfig={formData.costConfig}
             onChange={(field, value) => handleNestedInputChange("costConfig", field, value)}
           />
+
+          <section className="rounded-lg border border-sky-100 bg-white p-3">
+            <label className={labelClass}>Trading Configuration</label>
+            <label className="mb-3 flex items-center gap-2 text-xs text-sky-700">
+              <input
+                type="checkbox"
+                checked={!!formData.tradingConfig}
+                onChange={(e) => setFormData(prev => ({
+                  ...prev,
+                  tradingConfig: e.target.checked ? { nPCSellerID: '', price: 0 } : undefined
+                }))}
+                className="rounded border-sky-300 text-sky-600"
+              />
+              Enable NPC selling
+            </label>
+            {formData.tradingConfig && <div className="grid grid-cols-2 gap-3">
+              <input
+                type="text"
+                aria-label="NPC seller ID"
+                value={formData.tradingConfig.nPCSellerID}
+                onChange={e => setFormData(prev => ({ ...prev, tradingConfig: { ...prev.tradingConfig!, nPCSellerID: e.target.value } }))}
+                className={baseInputClass}
+                placeholder="NPC seller ID"
+                required
+              />
+              <input
+                type="number"
+                aria-label="Trading price"
+                min={0}
+                value={formData.tradingConfig.price}
+                onChange={e => setFormData(prev => ({ ...prev, tradingConfig: { ...prev.tradingConfig!, price: Number(e.target.value) } }))}
+                className={baseInputClass}
+                placeholder="Price"
+                required
+              />
+            </div>}
+          </section>
+
+          <section className="rounded-lg border border-sky-100 bg-white p-3">
+            <div className="mb-2 flex items-center justify-between">
+              <label className={labelClass}>Required Materials</label>
+              <button type="button" onClick={() => setFormData(prev => ({ ...prev, requiredMaterials: [...prev.requiredMaterials, { itemDefinitionID: prev.id, materialItemDefinitionID: '', quantity: 1 }] }))} className="text-xs font-semibold text-sky-700">Add material</button>
+            </div>
+            {formData.requiredMaterials.map((material, index) => <div key={index} className="mb-2 grid grid-cols-[1fr_1fr_76px_auto] gap-2">
+              <input aria-label="Item definition ID" value={material.itemDefinitionID} onChange={e => setFormData(prev => ({ ...prev, requiredMaterials: prev.requiredMaterials.map((entry, i) => i === index ? { ...entry, itemDefinitionID: e.target.value } : entry) }))} className={baseInputClass} placeholder="Item definition ID" />
+              <input aria-label="Material item definition ID" value={material.materialItemDefinitionID} onChange={e => setFormData(prev => ({ ...prev, requiredMaterials: prev.requiredMaterials.map((entry, i) => i === index ? { ...entry, materialItemDefinitionID: e.target.value } : entry) }))} className={baseInputClass} placeholder="Material item ID" />
+              <input aria-label="Material quantity" type="number" min={1} value={material.quantity} onChange={e => setFormData(prev => ({ ...prev, requiredMaterials: prev.requiredMaterials.map((entry, i) => i === index ? { ...entry, quantity: Number(e.target.value) } : entry) }))} className={baseInputClass} />
+              <button type="button" aria-label="Remove material" onClick={() => setFormData(prev => ({ ...prev, requiredMaterials: prev.requiredMaterials.filter((_, i) => i !== index) }))} className="px-2 text-rose-600">×</button>
+            </div>)}
+            {formData.requiredMaterials.length === 0 && <p className="text-xs text-sky-500">No required materials.</p>}
+          </section>
         </div>
 
         {/* COLUMN 2: Usage / Category Configuration Block */}

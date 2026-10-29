@@ -29,6 +29,8 @@ export const useItemUpsertForm = (item?: ItemDefinitionDTO | null) => {
     costConfig: {
       method: ItemConsumptionMethod.None,
     },
+    tradingConfig: undefined,
+    requiredMaterials: [],
     consumableConfig: undefined,
     equippableConfig: undefined,
     placeableConfig: undefined,
@@ -57,6 +59,8 @@ export const useItemUpsertForm = (item?: ItemDefinitionDTO | null) => {
             item.costConfig?.method
           ) as ItemConsumptionMethod,
         },
+        tradingConfig: item.tradingConfig ? { ...item.tradingConfig } : undefined,
+        requiredMaterials: item.requiredMaterials?.map(material => ({ ...material })) ?? [],
         
         // Map category DTO blocks with inline enum string safety transforms
         consumableConfig: item.consumableConfig 
@@ -104,6 +108,8 @@ export const useItemUpsertForm = (item?: ItemDefinitionDTO | null) => {
         maxDurability: undefined,
         triggeredAction: EntityAction.NONE,
         costConfig: { method: ItemConsumptionMethod.None },
+        tradingConfig: undefined,
+        requiredMaterials: [],
         consumableConfig: undefined,
         equippableConfig: undefined,
         placeableConfig: undefined,

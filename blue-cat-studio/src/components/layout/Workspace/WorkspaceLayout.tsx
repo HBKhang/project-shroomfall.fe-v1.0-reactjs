@@ -80,7 +80,6 @@ export const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({ currentPath,
     { name: 'Item Design', path: 'item-designer', icon: 'inventory_2' },
     { name: 'Entity Design', path: 'entity-designer', icon: 'smart_toy' },
     { name: 'Room Design', path: 'room-designer', icon: 'map' },
-    { name: 'Combat Run Design', path: 'combat-run-designer', icon: 'swords' },
     { name: 'Localization Design', path: 'localization-designer', icon: 'translate' },
     { name: 'Definition Design', path: 'definition-designer', icon: 'architecture' },
   ];

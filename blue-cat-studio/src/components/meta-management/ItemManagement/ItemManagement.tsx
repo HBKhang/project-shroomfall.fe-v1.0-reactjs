@@ -280,6 +280,8 @@ export const ItemManagement: React.FC = () => {
                                                                 <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold border ${item.placeableConfig ? 'bg-sky-100 text-sky-800 border-sky-300' : 'bg-gray-50 text-gray-400 border-gray-200'}`}>Placeable</span>
                                                                 <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold border ${item.rangedConfig ? 'bg-sky-100 text-sky-800 border-sky-300' : 'bg-gray-50 text-gray-400 border-gray-200'}`}>Ranged</span>
                                                                 <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold border ${item.meleeConfig ? 'bg-sky-100 text-sky-800 border-sky-300' : 'bg-gray-50 text-gray-400 border-gray-200'}`}>Melee</span>
+                                                                <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold border ${item.tradingConfig ? 'bg-sky-100 text-sky-800 border-sky-300' : 'bg-gray-50 text-gray-400 border-gray-200'}`}>Trading</span>
+                                                                <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold border ${item.requiredMaterials?.length ? 'bg-sky-100 text-sky-800 border-sky-300' : 'bg-gray-50 text-gray-400 border-gray-200'}`}>Materials {item.requiredMaterials?.length ?? 0}</span>
                                                             </div>
                                                         </td>
                                                     )}
