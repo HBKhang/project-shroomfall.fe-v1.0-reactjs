@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { AUTH_KEYS } from '../../constants/auth.constants';
 import { dispatchApiError } from '../handlers/error/errorDispatcher';
-import type { ApiErrorDTO } from '../../contracts/dto/common/api-error-dto';
+import type { ApiErrorDTO } from '../../contracts/dto/abstraction/api-error-dto';
 import type { TokenDTO } from '../../contracts/dto/feature/identity/response/token-dto'; 
 import type { RefreshTokenDTO } from '../../contracts/dto/feature/identity/command/refresh-token-dto'; 
 

@@ -7,7 +7,6 @@ import { EntityManagement } from '../../entity-management/EntityManagement';
 import { LocalizationManagement } from '../../localization-management/LocalizationManagement';
 import { AdminDashboard } from '../../dashboard/AdminDashboard';
 import { DesignDefinitionManagement } from '../../versioning-management/DesignDefinitionManagement';
-import { CombatRunManagement } from '../../combat-run-management/CombatRunManagement';
 import type { UserSession } from '../../../models/UserSession';
 import { Role } from '../../../contracts/enum/identity-domain/role';
 import './WorkspaceLayout.css';
@@ -174,10 +173,7 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ user, onLogout
               )}
               {currentPath === 'room-designer' && (
                 <RoomManagement />
-              )}
-              {currentPath === 'combat-run-designer' && (
-                <CombatRunManagement />
-              )}
+              )}              
               {currentPath === 'localization-designer' && (
                 <LocalizationManagement />
               )}

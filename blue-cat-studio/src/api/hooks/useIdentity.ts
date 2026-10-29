@@ -3,7 +3,6 @@ import { apiClient } from '../clients/apiClient';
 import { AUTH_KEYS } from '../../constants/auth.constants';
 import type { LoginDTO } from '../../contracts/dto/feature/identity/command/login-dto'; 
 import type { RegisterDTO } from '../../contracts/dto/feature/identity/command/register-dto'; 
-import type { SteamAuthDTO } from '../../contracts/dto/feature/identity/command/steam-auth-dto';
 import type { UpdateProfileDTO } from '../../contracts/dto/feature/identity/command/update-profile-dto'; 
 import type { TokenDTO } from '../../contracts/dto/feature/identity/response/token-dto';
 
@@ -34,16 +33,7 @@ export const useIdentity = () => {
     onSuccess: (data) => handleAuthSuccess(data),
   });
 
-  // 3. Steam Auth Mutation
-  const steamAuthMutation = useMutation({
-    mutationFn: async (dto: SteamAuthDTO): Promise<TokenDTO> => {
-      const { data } = await apiClient.post<TokenDTO>('/management/identity/google', dto);
-      return data;
-    },
-    onSuccess: (data) => handleAuthSuccess(data),
-  });
-
-  // 5. Update Profile Mutation
+  // 3. Update Profile Mutation
   const updateProfileMutation = useMutation({
     mutationFn: async (dto: UpdateProfileDTO): Promise<void> => {
       await apiClient.put('/identity/profile', dto);
@@ -53,7 +43,7 @@ export const useIdentity = () => {
     },
   });
 
-  // 6. Update Preferred Locale Mutation
+  // 4. Update Preferred Locale Mutation
   const updateLocaleMutation = useMutation({
     mutationFn: async (locale: string): Promise<void> => {
       await apiClient.put(`/identity/preferred-locale/${locale}`);
@@ -63,7 +53,6 @@ export const useIdentity = () => {
   return {
     login: loginMutation,
     register: registerMutation,
-    steamAuth: steamAuthMutation,
     updateProfile: updateProfileMutation,
     updateLocale: updateLocaleMutation,
   };

@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '../clients/apiClient';
 import type { DefinitionSnapshotDTO } from '../../contracts/dto/feature/design/response/definition-snapshot-dto';
 import type { UpdateDefinitionDTO } from '../../contracts/dto/feature/design/command/update-definition-dto';
-import type { PagedResponseDTO } from '../../contracts/dto/common/paged-response-dto';
+import type { PagedResponseDTO } from '../../contracts/dto/abstraction/paged-response-dto'; 
 import type { EntityDefinitionDTO } from '../../contracts/dto/definition/entity-domain/entity-definition-dto';
 import type { EntityDefinitionQueryDTO } from '../../contracts/dto/feature/design/command/entity-definition-query-dto';
 import type { EffectDefinitionDTO } from '../../contracts/dto/definition/meta-domain/effect-definition-dto';
@@ -14,16 +14,10 @@ import type { RoomDefinitionDTO } from '../../contracts/dto/definition/world-dom
 import type { LocaleDTO } from '../../contracts/dto/definition/localization-domain/locale-dto';
 import type { LocalizationEntryDTO } from '../../contracts/dto/definition/localization-domain/localization-entry-dto';
 import type { LocalizationEntryQueryDTO } from '../../contracts/dto/feature/design/command/localization-entry-query-dto';
-import type { CombatRunDefinitionDTO } from '../../contracts/dto/definition/world-domain/combat-run-definition-dto';
-import type { CombatRunDefinitionQueryDTO } from '../../contracts/dto/feature/design/command/combat-run-definition-query-dto';
 
 // --- Query Keys ---
 export const DESIGN_QUERY_KEYS = {
   SNAPSHOT: (version: string) => ['design', 'snapshot', version] as const,
-
-  // Combat Runs Cache Roots
-  COMBAT_RUNS: ['design', 'combat-runs'] as const,
-  COMBAT_RUNS_LIST: (queries: CombatRunDefinitionQueryDTO) => ['design', 'combat-runs', 'list', queries] as const,
 
   // Effects Cache Roots
   EFFECTS: ['design', 'effects'] as const,
@@ -58,21 +52,6 @@ const createFileUploadFormData = (file: File): FormData => {
 // ==========================================
 // --- QUERIES (Read Actions) ---
 // ==========================================
-
-/**
- * Fetch All Combat Runs (GET /api/design/combat-run)
- */
-export const useDesignAllCombatRuns = (queries: CombatRunDefinitionQueryDTO) => {
-  return useQuery({
-    queryKey: DESIGN_QUERY_KEYS.COMBAT_RUNS_LIST(queries),
-    queryFn: async (): Promise<PagedResponseDTO<CombatRunDefinitionDTO>> => {
-      const { data } = await apiClient.get<PagedResponseDTO<CombatRunDefinitionDTO>>('/design/combat-run', {
-        params: queries,
-      });
-      return data;
-    },
-  });
-};
 
 /**
  * Fetch All Effects (GET /api/design/effects)
@@ -181,24 +160,6 @@ export const useDesignAllRooms = (queries: RoomDefinitionQueryDTO) => {
 // ==========================================
 
 /**
- * Import Combat Run Definitions File (POST /api/design/combat-run-definition/upload)
- */
-export const useImportCombatRunDefinitions = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (file: File): Promise<void> => {
-      await apiClient.post('/design/combat-run-definition/upload', createFileUploadFormData(file), {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: DESIGN_QUERY_KEYS.COMBAT_RUNS });
-    },
-  });
-};
-
-/**
  * Import Effect Definitions File (POST /api/design/effect-definition/upload)
  */
 export const useImportEffectDefinitions = () => {
@@ -304,22 +265,6 @@ export const useUpdateLocalizationEntry = () => {
       queryClient.invalidateQueries({
         queryKey: DESIGN_QUERY_KEYS.LOCALIZATION_ENTRIES,
       });
-    },
-  });
-};
-
-/**
- * Upsert Combat Run Definition (POST /api/design/combat-run-definition)
- */
-export const useUpsertCombatRunDefinition = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (dto: CombatRunDefinitionDTO): Promise<void> => {
-      await apiClient.post('/design/combat-run-definition', dto);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: DESIGN_QUERY_KEYS.COMBAT_RUNS });
     },
   });
 };
