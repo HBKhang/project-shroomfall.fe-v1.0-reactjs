@@ -31,7 +31,7 @@ export const ItemUpsertForm: React.FC<ItemUpsertFormProps> = ({ item, onClose })
     formData,
     setFormData,
   } = useItemUpsertForm(item);
-
+  
   // Search filter query state for the Effects Matrix component
   const [effectSearch, setEffectSearch] = useState('');
 
@@ -185,8 +185,6 @@ export const ItemUpsertForm: React.FC<ItemUpsertFormProps> = ({ item, onClose })
         ? formData.meleeConfig
         : undefined,
     };
-
-    console.debug('[ItemUpsertForm] ItemDefinitionDTO payload:', payload);
 
     upsertItem(payload as any, {
       onSuccess: () => {

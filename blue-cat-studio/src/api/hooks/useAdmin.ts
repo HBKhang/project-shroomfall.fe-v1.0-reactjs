@@ -25,7 +25,7 @@ export const useAdminRoomSpatials = () => {
     return useQuery({
         queryKey: ADMIN_QUERY_KEYS.ROOM_SPATIAL_LIST,
         queryFn: async (): Promise<RoomSpatialDTO[]> => {
-            const { data } = await apiClient.get<RoomSpatialDTO[]>('/Admin/room-spatials');
+            const { data } = await apiClient.get<RoomSpatialDTO[]>('/game/admin/room-spatials');
             return data;
         },
     });
@@ -39,7 +39,7 @@ export const useAdminRoomInstance = (roomSpatialId: string) => {
         queryKey: ADMIN_QUERY_KEYS.ROOM_INSTANCE_DETAILS(roomSpatialId),
         queryFn: async (): Promise<RoomInstanceDTO> => {
             // Note: The route parameter in your controller is 'roomSpatailId' (with typo)
-            const { data } = await apiClient.get<RoomInstanceDTO>(`/Admin/room-instance/${roomSpatialId}`);
+            const { data } = await apiClient.get<RoomInstanceDTO>(`/game/admin/room-instance/${roomSpatialId}`);
             return data;
         },
         enabled: !!roomSpatialId,
