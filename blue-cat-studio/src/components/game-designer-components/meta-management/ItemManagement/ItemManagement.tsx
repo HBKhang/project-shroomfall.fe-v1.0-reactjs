@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useDesignAllItems, useImportItemDefinitions } from '../../../api/hooks/useDesign';
+import { useDesignAllItems,  useImportItemDefinitions } from '../../../../api/hooks/useDesign';
 import { ItemUpsertForm } from './ItemUpsertForm';
-import { ItemType } from '../../../contracts/enum/meta-domain/item/item-type';
-import { ItemCategory } from '../../../contracts/enum/meta-domain/item/item-category';
-import type { ItemDefinitionDTO } from '../../../contracts/dto/definition/meta-domain/item-definition-dto';
-import type { ItemDefinitionQueryDTO } from '../../../contracts/dto/feature/design/command/item-definition-query-dto';
-import { CustomSelect } from '../../common/CustomSelect/CustomSelect';
-import { enumToString } from '../../../utils/enum-helper';
+import { ItemType } from '../../../../contracts/enum/meta-domain/item/item-type';
+import { ItemCategory } from '../../../../contracts/enum/meta-domain/item/item-category';
+import type { ItemDefinitionDTO } from '../../../../contracts/dto/definition/meta-domain/item-definition-dto';
+import type { ItemDefinitionQueryDTO } from '../../../../contracts/dto/feature/design/command/item-definition-query-dto';
+import { CustomSelect } from '../../../common/CustomSelect/CustomSelect';
+import { enumToString } from '../../../../utils/enum-helper';
 
 export const ItemManagement: React.FC = () => {
     // Pipeline query filters binding

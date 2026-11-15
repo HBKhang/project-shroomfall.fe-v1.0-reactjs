@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useUpdateDesignDefinition } from '../../api/hooks/useDesign';
-import type { UpdateDefinitionDTO } from '../../contracts/dto/feature/design/command/update-definition-dto';
+import { useUpdateDesignDefinition } from '../../../api/hooks/useDesign';
+import type { UpdateDefinitionDTO } from '../../../contracts/dto/feature/design/command/update-definition-dto';
 
 export const DesignDefinitionManagement: React.FC = () => {
     const { mutate: updateDefinition, isPending } = useUpdateDesignDefinition();

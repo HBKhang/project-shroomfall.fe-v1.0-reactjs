@@ -1,5 +1,5 @@
 import { toastBus } from './errorEvent';
-import type { ApiErrorDTO } from '../../../contracts/dto/common/api-error-dto';
+import type { ApiErrorDTO } from '../../../contracts/dto/abstraction/api-error-dto';
 
 export const handleValidationError = (errorData: ApiErrorDTO | string | undefined): void => {
   if (errorData && typeof errorData === 'object') {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useUpsertEffectDefinition } from '../../../api/hooks/useDesign';
-import { AttributeType } from '../../../contracts/enum/meta-domain/effect/attribute-type';
-import { EffectType } from '../../../contracts/enum/meta-domain/effect/effect-type';
-import type { EffectDefinitionDTO } from '../../../contracts/dto/definition/meta-domain/effect-definition-dto';
-import { enumToIndex, enumToString } from '../../../utils/enum-helper';
-import { CustomSelect } from '../../common/CustomSelect/CustomSelect';
+import { useUpsertEffectDefinition } from '../../../../api/hooks/useDesign';
+import { AttributeType } from '../../../../contracts/enum/meta-domain/effect/attribute-type';
+import { EffectType } from '../../../../contracts/enum/meta-domain/effect/effect-type';
+import type { EffectDefinitionDTO } from '../../../../contracts/dto/definition/meta-domain/effect-definition-dto';
+import { enumToIndex, enumToString } from '../../../../utils/enum-helper';
+import { CustomSelect } from '../../../common/CustomSelect/CustomSelect';
 
 interface EffectRowFormProps {
   effect?: EffectDefinitionDTO | null;

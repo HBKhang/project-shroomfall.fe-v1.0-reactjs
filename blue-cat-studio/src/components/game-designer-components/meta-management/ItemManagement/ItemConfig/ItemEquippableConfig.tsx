@@ -1,6 +1,6 @@
-import { EquipmentSlot } from '../../../../contracts/enum/meta-domain/item/equipment-slot';
+import { EquipmentSlot } from '../../../../../contracts/enum/meta-domain/item/equipment-slot';
 import { EffectSelectionMatrix } from './EffectSelectionMatrix';
-import { CustomSelect } from '../../../common/CustomSelect/CustomSelect';
+import { CustomSelect } from '../../../../common/CustomSelect/CustomSelect';
 
 interface Props {
     config: {

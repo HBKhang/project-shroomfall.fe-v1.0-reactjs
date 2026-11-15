@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { ROUTES } from '../../../constants/routes.constants';
-import { EffectManagement } from '../../meta-management/EffectManagement/EffectManagement';
-import { ItemManagement } from '../../meta-management/ItemManagement/ItemManagement';
+import { EffectManagement } from '../../game-designer-components/meta-management/EffectManagement/EffectManagement';
+import { ItemManagement } from '../../game-designer-components/meta-management/ItemManagement/ItemManagement';
 import { RoomManagement } from '../../game-designer-components/room-management/RoomManagement';
 import { EntityManagement } from '../../game-designer-components/entity-management/EntityManagement';
-import { LocalizationManagement } from '../../localization-management/LocalizationManagement';
+import { LocalizationManagement } from '../../game-designer-components/localization-management/LocalizationManagement';
 import { AdminDashboard } from '../../dashboard/AdminDashboard';
-import { DesignDefinitionManagement } from '../../versioning-management/DesignDefinitionManagement';
+import { DesignDefinitionManagement } from '../../game-designer-components/versioning-management/DesignDefinitionManagement';
 import type { UserSession } from '../../../models/UserSession';
 import { Role } from '../../../contracts/enum/identity-domain/role';
 import './WorkspaceLayout.css';

@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { enumToIndex } from '../../../utils/enum-helper';
-import { useUpsertItemDefinition, useDesignAllEffects } from '../../../api/hooks/useDesign';
-import { useItemUpsertForm } from '../../../hooks/useItemUpsertForm';
-import { ItemType } from '../../../contracts/enum/meta-domain/item/item-type';
-import { ItemCategory } from '../../../contracts/enum/meta-domain/item/item-category';
-import { ItemConsumptionMethod } from '../../../contracts/enum/meta-domain/item/item-consumption-method';
-import { EquipmentSlot } from '../../../contracts/enum/meta-domain/item/equipment-slot';
-import { EntityAction } from '../../../contracts/enum/entity-domain/entity-action';
-import type { ItemDefinitionDTO } from '../../../contracts/dto/definition/meta-domain/item-definition-dto';
+import { enumToIndex } from '../../../../utils/enum-helper';  
+import { useUpsertItemDefinition, useDesignAllEffects } from '../../../../api/hooks/useDesign';
+import { useItemUpsertForm } from '../../../../hooks/useItemUpsertForm';
+import { ItemType } from '../../../../contracts/enum/meta-domain/item/item-type';
+import { ItemCategory } from '../../../../contracts/enum/meta-domain/item/item-category';
+import { ItemConsumptionMethod } from '../../../../contracts/enum/meta-domain/item/item-consumption-method';
+import { EquipmentSlot } from '../../../../contracts/enum/meta-domain/item/equipment-slot';
+import { EntityAction } from '../../../../contracts/enum/entity-domain/entity-action';
+import type { ItemDefinitionDTO } from '../../../../contracts/dto/definition/meta-domain/item-definition-dto';
 import { ItemCostConfig } from './ItemConfig/ItemCostConfig';
 import { ItemConsumableConfig } from './ItemConfig/ItemConsumableConfig';
 import { ItemEquippableConfig } from './ItemConfig/ItemEquippableConfig';
 import { ItemPlaceableConfig } from './ItemConfig/ItemPlaceableConfig';
 import { ItemRangedConfig } from './ItemConfig/ItemRangedConfig';
 import { ItemMeleeConfig } from './ItemConfig/ItemMeleeConfig';
-import { CustomSelect } from '../../common/CustomSelect/CustomSelect';
+import { CustomSelect } from '../../../common/CustomSelect/CustomSelect';
 
 interface ItemUpsertFormProps {
   item?: ItemDefinitionDTO | null;

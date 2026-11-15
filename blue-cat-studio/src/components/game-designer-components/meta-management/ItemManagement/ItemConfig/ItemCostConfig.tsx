@@ -1,5 +1,5 @@
-import { ItemConsumptionMethod } from "../../../../contracts/enum/meta-domain/item/item-consumption-method"; 
-import { CustomSelect } from "../../../common/CustomSelect/CustomSelect";
+import { ItemConsumptionMethod } from "../../../../../contracts/enum/meta-domain/item/item-consumption-method";
+import { CustomSelect } from "../../../../common/CustomSelect/CustomSelect";
 
 interface Props {
     costConfig: {

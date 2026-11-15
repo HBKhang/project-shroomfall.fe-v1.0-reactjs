@@ -1,4 +1,4 @@
-import type { EffectDefinitionDTO } from '../../../../contracts/dto/definition/meta-domain/effect-definition-dto';
+import type { EffectDefinitionDTO } from "../../../../../contracts/dto/definition/meta-domain/effect-definition-dto";
 
 interface EffectSelectionMatrixProps {
     selectedIds: string[];

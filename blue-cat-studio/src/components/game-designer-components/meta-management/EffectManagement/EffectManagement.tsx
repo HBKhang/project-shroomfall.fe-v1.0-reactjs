@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useDesignAllEffects, useImportEffectDefinitions } from '../../../api/hooks/useDesign';
+import { useDesignAllEffects, useImportEffectDefinitions } from '../../../../api/hooks/useDesign';
 import { EffectRowForm } from './EffectRowForm';
-import { EffectType } from '../../../contracts/enum/meta-domain/effect/effect-type';
-import { AttributeType } from '../../../contracts/enum/meta-domain/effect/attribute-type';
-import type { EffectDefinitionQueryDTO } from '../../../contracts/dto/feature/design/command/effect-definition-query-dto';
-import { CustomSelect } from '../../common/CustomSelect/CustomSelect';
+import { EffectType } from '../../../../contracts/enum/meta-domain/effect/effect-type';
+import { AttributeType } from '../../../../contracts/enum/meta-domain/effect/attribute-type';
+import type { EffectDefinitionQueryDTO } from '../../../../contracts/dto/feature/design/command/effect-definition-query-dto';
+import { CustomSelect } from '../../../common/CustomSelect/CustomSelect';
 
 export const EffectManagement: React.FC = () => {
   const [queryParams, setQueryParams] = useState<Partial<EffectDefinitionQueryDTO>>({

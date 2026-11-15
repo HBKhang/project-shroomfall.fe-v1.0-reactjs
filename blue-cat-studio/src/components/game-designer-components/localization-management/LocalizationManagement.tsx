@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useDesignLocalizationEntries, useDesignAllLocales, useUpdateLocalizationEntry } from '../../api/hooks/useDesign';
-import type { LocalizationEntryQueryDTO } from '../../contracts/dto/feature/design/command/localization-entry-query-dto';
-import type { LocalizationEntryDTO } from '../../contracts/dto/definition/localization-domain/localization-entry-dto';
-import { CustomSelect } from '../common/CustomSelect/CustomSelect';
+import { useDesignLocalizationEntries, useDesignAllLocales, useUpdateLocalizationEntry } from '../../../api/hooks/useDesign';
+import type { LocalizationEntryQueryDTO } from '../../../contracts/dto/feature/design/command/localization-entry-query-dto';
+import type { LocalizationEntryDTO } from '../../../contracts/dto/definition/localization-domain/localization-entry-dto';
+import { CustomSelect } from '../../common/CustomSelect/CustomSelect';
 
 export const LocalizationManagement: React.FC = () => {
     const [queryParams, setQueryParams] = useState<Partial<LocalizationEntryQueryDTO>>({
