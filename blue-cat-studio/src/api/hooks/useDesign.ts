@@ -231,6 +231,24 @@ export const useImportRoomDefinition = () => {
   });
 };
 
+/** Import localization entries for one locale (POST /management/design/localization-entry/{localeCode}/upload) */
+export const useImportLocalizationEntries = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ localeCode, file }: { localeCode: string; file: File }): Promise<void> => {
+      await apiClient.post(
+        `/management/design/localization-entry/${encodeURIComponent(localeCode)}/upload`,
+        createFileUploadFormData(file),
+        { headers: { 'Content-Type': 'multipart/form-data' } },
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: DESIGN_QUERY_KEYS.LOCALIZATION_ENTRIES });
+    },
+  });
+};
+
 // ==========================================
 // --- MUTATIONS: Data Updates & Upserts ---
 // ==========================================

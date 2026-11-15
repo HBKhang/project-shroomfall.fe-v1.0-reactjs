@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDesignLocalizationEntries, useDesignAllLocales, useUpdateLocalizationEntry } from '../../../api/hooks/useDesign';
+import { useDesignLocalizationEntries, useDesignAllLocales, useUpdateLocalizationEntry, useImportLocalizationEntries } from '../../../api/hooks/useDesign';
 import type { LocalizationEntryQueryDTO } from '../../../contracts/dto/feature/design/command/localization-entry-query-dto';
 import type { LocalizationEntryDTO } from '../../../contracts/dto/definition/localization-domain/localization-entry-dto';
 import { CustomSelect } from '../../common/CustomSelect/CustomSelect';
@@ -14,6 +14,9 @@ export const LocalizationManagement: React.FC = () => {
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [activeEntry, setActiveEntry] = useState<LocalizationEntryDTO | null>(null);
+    const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+    const [uploadLocaleCode, setUploadLocaleCode] = useState('');
+    const [uploadFile, setUploadFile] = useState<File | null>(null);
 
     const { data, isLoading, isError, refetch } = useDesignLocalizationEntries(
         queryParams as LocalizationEntryQueryDTO
@@ -21,6 +24,7 @@ export const LocalizationManagement: React.FC = () => {
 
     const { data: locales = [] } = useDesignAllLocales();
     const { mutate: updateEntry, isPending: isUpdating } = useUpdateLocalizationEntry();
+    const { mutate: importEntries, isPending: isUploading } = useImportLocalizationEntries();
 
     const updateFilterField = (field: keyof LocalizationEntryQueryDTO, value: any) => {
         setQueryParams((prev) => ({
@@ -58,6 +62,20 @@ export const LocalizationManagement: React.FC = () => {
         });
     };
 
+    const handleUploadEntries = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!uploadFile || !uploadLocaleCode) return;
+
+        importEntries({ localeCode: uploadLocaleCode, file: uploadFile }, {
+            onSuccess: () => {
+                setIsUploadModalOpen(false);
+                setUploadFile(null);
+                refetch();
+            },
+            onError: (err) => console.error('Failed to import localization entries:', err),
+        });
+    };
+
     const localeOptions = locales.map((locale) => locale.code || String(locale));
 
     return (
@@ -72,6 +90,18 @@ export const LocalizationManagement: React.FC = () => {
                         Manage global localization keys, linguistic dictionary entries, and multi-language region support.
                     </p>
                 </div>
+                <button
+                    type="button"
+                    onClick={() => {
+                        setUploadLocaleCode(queryParams.localeCode || localeOptions[0] || '');
+                        setIsUploadModalOpen(true);
+                    }}
+                    disabled={localeOptions.length === 0}
+                    className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                    <span className="material-symbols-outlined text-[18px]">upload_file</span>
+                    Import JSON
+                </button>
             </header>
 
             {/* Control Filters Panel */}
@@ -217,6 +247,44 @@ export const LocalizationManagement: React.FC = () => {
                     </>
                 )}
             </div>
+
+            {/* Edit Modal Overlay */}
+            {isUploadModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-sky-950/40 backdrop-blur-xs p-4">
+                    <div className="w-full max-w-lg rounded-xl border border-sky-100 bg-white p-6 shadow-xl">
+                        <div className="mb-4 flex items-center justify-between border-b border-sky-100 pb-3">
+                            <div className="flex items-center gap-2">
+                                <span className="material-symbols-outlined text-sky-600">upload_file</span>
+                                <h3 className="text-base font-semibold text-sky-950">Import Localization JSON</h3>
+                            </div>
+                            <button type="button" aria-label="Close upload form" onClick={() => setIsUploadModalOpen(false)} className="p-1 text-sky-400 hover:text-sky-700">
+                                <span className="material-symbols-outlined text-[18px]">close</span>
+                            </button>
+                        </div>
+                        <form onSubmit={handleUploadEntries} className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-1.5">
+                                <label htmlFor="upload-locale" className="text-xs font-semibold text-sky-800">Locale Code</label>
+                                <select id="upload-locale" required value={uploadLocaleCode} onChange={(e) => setUploadLocaleCode(e.target.value)} className="w-full rounded-lg border border-sky-200 bg-white px-3 py-2 text-sm text-sky-900 outline-none focus:border-sky-400 focus:ring-4 focus:ring-sky-100">
+                                    <option value="" disabled>Select a locale</option>
+                                    {localeOptions.map((locale) => <option key={locale} value={locale}>{locale}</option>)}
+                                </select>
+                            </div>
+                            <div className="flex flex-col gap-1.5">
+                                <label htmlFor="localization-json" className="text-xs font-semibold text-sky-800">JSON File</label>
+                                <input id="localization-json" type="file" accept=".json,application/json" required onChange={(e) => setUploadFile(e.target.files?.[0] || null)} className="w-full rounded-lg border border-sky-200 bg-sky-50/20 px-3 py-2 text-sm text-sky-900 file:mr-3 file:rounded-md file:border-0 file:bg-sky-100 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-sky-700" />
+                                <p className="text-xs text-sky-500">Upload the locale JSON file; only the selected locale’s entries will be applied.</p>
+                            </div>
+                            <div className="flex justify-end gap-2 border-t border-sky-100 pt-3">
+                                <button type="button" onClick={() => setIsUploadModalOpen(false)} className="rounded-lg border border-sky-200 bg-white px-4 py-2 text-xs font-semibold text-sky-700 hover:bg-sky-50">Cancel</button>
+                                <button type="submit" disabled={!uploadFile || !uploadLocaleCode || isUploading} className="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-50">
+                                    <span className="material-symbols-outlined text-[14px]">cloud_upload</span>
+                                    {isUploading ? 'Uploading...' : 'Upload File'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             {/* Edit Modal Overlay */}
             {isEditModalOpen && activeEntry && (
