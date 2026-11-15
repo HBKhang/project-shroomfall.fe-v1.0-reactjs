@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { FormRow, FormField, Input } from './EntityFormHelpers';
-import { enumToString, enumToIndex } from '../../utils/enum-helper';
-import { AttributeType } from '../../contracts/enum/meta-domain/effect/attribute-type';
-import { CollisionLayer } from '../../contracts/enum/entity-domain/collision-layer';
-import { CollisionShapeType } from '../../contracts/enum/entity-domain/collision-shape-type';
-import { ItemQuality } from '../../contracts/enum/meta-domain/item/item-quality';
-import { useDesignAllItems } from '../../api/hooks/useDesign';
+import { enumToString, enumToIndex } from '../../../utils/enum-helper';
+import { AttributeType } from '../../../contracts/enum/meta-domain/effect/attribute-type';
+import { CollisionLayer } from '../../../contracts/enum/entity-domain/collision-layer';
+import { CollisionShapeType } from '../../../contracts/enum/entity-domain/collision-shape-type';
+import { ItemQuality } from '../../../contracts/enum/meta-domain/item/item-quality';
+import { useDesignAllItems } from '../../../api/hooks/useDesign';
 import { useRef } from 'react';
-import { CustomSelect } from '../common/CustomSelect/CustomSelect';
-import { CollisionRole } from '../../contracts/enum/entity-domain/collision-role';
-import { CollisionPresets } from '../../utils/collision-helper';
+import { CustomSelect } from '../../common/CustomSelect/CustomSelect';
+import { CollisionRole } from '../../../contracts/enum/entity-domain/collision-role';
+import { CollisionPresets } from '../../../utils/collision-helper';
 
 // ==========================================
 // REUSABLE FIND & SELECT COMPONENTS

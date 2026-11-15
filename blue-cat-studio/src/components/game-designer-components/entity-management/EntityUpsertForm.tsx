@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { EntityType } from '../../contracts/enum/entity-domain/entity-type';
-import { ItemQuality } from '../../contracts/enum/meta-domain/item/item-quality';
+import { EntityType } from '../../../contracts/enum/entity-domain/entity-type';
+import { ItemQuality } from '../../../contracts/enum/meta-domain/item/item-quality';
 import { FormField, Input, ComponentCard } from './EntityFormHelpers';
 import { ComponentRegistry, EntitySchemaRules } from './EntityRegistry';
-import { useUpsertEntityDefinition, useDesignEntityDetail } from '../../api/hooks/useDesign';
-import { enumToIndex, enumToString } from '../../utils/enum-helper';
-import { CollisionRole } from '../../contracts/enum/entity-domain/collision-role';
-import { CollisionShapeType } from '../../contracts/enum/entity-domain/collision-shape-type';
-import { CustomSelect } from '../common/CustomSelect/CustomSelect';
+import { useUpsertEntityDefinition, useDesignEntityDetail } from '../../../api/hooks/useDesign';
+import { enumToIndex, enumToString } from '../../../utils/enum-helper';
+import { CollisionRole } from '../../../contracts/enum/entity-domain/collision-role';
+import { CollisionShapeType } from '../../../contracts/enum/entity-domain/collision-shape-type';
+import { CustomSelect } from '../../common/CustomSelect/CustomSelect';
 
 interface EntityUpsertFormProps {
     entityId?: string;

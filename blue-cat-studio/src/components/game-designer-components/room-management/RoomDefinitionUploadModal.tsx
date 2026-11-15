@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useImportRoomDefinition } from '../../api/hooks/useDesign'; // Adjust import path as needed
+import { useImportRoomDefinition } from '../../../api/hooks/useDesign'; // Adjust import path as needed
 
 export const RoomDefinitionUploadModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);

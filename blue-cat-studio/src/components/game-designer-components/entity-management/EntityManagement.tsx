@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useDesignAllEntities, useImportEntityDefinitions } from '../../api/hooks/useDesign';
+import { useDesignAllEntities, useImportEntityDefinitions } from '../../../api/hooks/useDesign';
 import { EntityUpsertForm } from './EntityUpsertForm';
-import { EntityType } from '../../contracts/enum/entity-domain/entity-type';
-import type { EntityDefinitionQueryDTO } from '../../contracts/dto/feature/design/command/entity-definition-query-dto'; 
-import { CustomSelect } from '../common/CustomSelect/CustomSelect';
-import { enumToString, enumToIndex } from '../../utils/enum-helper';
+import { EntityType } from '../../../contracts/enum/entity-domain/entity-type';
+import type { EntityDefinitionQueryDTO } from '../../../contracts/dto/feature/design/command/entity-definition-query-dto'; 
+import { CustomSelect } from '../../common/CustomSelect/CustomSelect';
+import { enumToString, enumToIndex } from '../../../utils/enum-helper';
 
 export const EntityManagement: React.FC = () => {
     // 1. Core query state aligned to EntityDefinitionQueryDTO contract
