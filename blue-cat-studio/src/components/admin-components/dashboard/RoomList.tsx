@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useAdminRoomSpatials } from '../../api/hooks/useAdmin';
-import type { RoomSpatialUI } from '../../api/realtime/useAdminRealtime';
+import { useAdminRoomSpatials } from '../../../api/hooks/useAdmin';
+import type { RoomSpatialUI } from '../../../api/realtime/useAdminRealtime';
 
 interface RoomListProps {
     selectedRoomId: string |null;

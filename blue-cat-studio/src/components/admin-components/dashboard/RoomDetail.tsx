@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAdminRoomInstance } from '../../api/hooks/useAdmin';
+import { useAdminRoomInstance } from '../../../api/hooks/useAdmin';
 
 interface RoomDetailProps {
   roomId: string;

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import type { TelemetryEventDTO } from '../../contracts/dto/feature/admin/response/telemetry-event-dto';
+import type { TelemetryEventDTO } from '../../../contracts/dto/feature/admin/response/telemetry-event-dto';
 
 interface ActivityLogProps {
     events: TelemetryEventDTO[];

@@ -5,8 +5,9 @@ import { ItemManagement } from '../../game-designer-components/meta-management/I
 import { RoomManagement } from '../../game-designer-components/room-management/RoomManagement';
 import { EntityManagement } from '../../game-designer-components/entity-management/EntityManagement';
 import { LocalizationManagement } from '../../game-designer-components/localization-management/LocalizationManagement';
-import { AdminDashboard } from '../../dashboard/AdminDashboard';
+import { AdminDashboard } from '../../admin-components/dashboard/AdminDashboard';
 import { DesignDefinitionManagement } from '../../game-designer-components/versioning-management/DesignDefinitionManagement';
+import { QuestManagement } from '../../game-master-components/quest-management/QuestManagement';
 import type { UserSession } from '../../../models/UserSession';
 import { Role } from '../../../contracts/enum/identity-domain/role';
 import './WorkspaceLayout.css';
@@ -25,11 +26,35 @@ interface WorkspaceHeaderProps {
   onLogout: () => void;
 }
 
+interface MenuItem {
+  name: string;
+  path: string;
+  icon: string;
+  roles: Role[];
+  page: React.FC;
+}
+
 interface WorkspaceSidebarProps {
   currentPath: string;
   onNavigate: (path: string) => void;
-  userRole: string;
+  items: MenuItem[];
 }
+
+// Roles mirror the server's [Authorize(Roles = ...)] on each controller
+const DESIGN_ROLES = [Role.Designer, Role.Admin];
+
+const MENU_ITEMS: MenuItem[] = [
+  { name: 'Dashboard', path: 'dashboard', icon: 'dashboard', roles: [Role.Admin], page: AdminDashboard },
+  { name: 'Effect Design', path: 'effect-designer', icon: 'bolt', roles: DESIGN_ROLES, page: EffectManagement },
+  { name: 'Item Design', path: 'item-designer', icon: 'inventory_2', roles: DESIGN_ROLES, page: ItemManagement },
+  { name: 'Entity Design', path: 'entity-designer', icon: 'smart_toy', roles: DESIGN_ROLES, page: EntityManagement },
+  { name: 'Room Design', path: 'room-designer', icon: 'map', roles: DESIGN_ROLES, page: RoomManagement },
+  { name: 'Localization Design', path: 'localization-designer', icon: 'translate', roles: DESIGN_ROLES, page: LocalizationManagement },
+  { name: 'Definition Design', path: 'definition-designer', icon: 'architecture', roles: DESIGN_ROLES, page: DesignDefinitionManagement },
+  { name: 'Quest Management', path: 'quest-manager', icon: 'assignment', roles: [Role.GameMaster], page: QuestManagement },
+];
+
+const getMenuItemsForRole = (role: Role) => MENU_ITEMS.filter((item) => item.roles.includes(role));
 
 export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({ username, role, onLogout }) => {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'Disconnected';
@@ -73,17 +98,7 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({ username, role
   );
 };
 
-export const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({ currentPath, onNavigate, userRole }) => {
-  const menuItems = [
-    { name: 'Dashboard', path: 'dashboard', icon: 'dashboard', adminOnly: true },
-    { name: 'Effect Design', path: 'effect-designer', icon: 'bolt' },
-    { name: 'Item Design', path: 'item-designer', icon: 'inventory_2' },
-    { name: 'Entity Design', path: 'entity-designer', icon: 'smart_toy' },
-    { name: 'Room Design', path: 'room-designer', icon: 'map' },
-    { name: 'Localization Design', path: 'localization-designer', icon: 'translate' },
-    { name: 'Definition Design', path: 'definition-designer', icon: 'architecture' },
-  ];
-
+export const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({ currentPath, onNavigate, items }) => {
   return (
     <aside className="flex w-64 shrink-0 flex-col border-r border-sky-100 bg-white font-sans antialiased h-full">
       <div className="flex h-16 shrink-0 items-center gap-3 border-b border-sky-100 px-6 font-bold tracking-tight text-sky-950">
@@ -92,8 +107,7 @@ export const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({ currentPath,
       </div>
 
       <nav className="flex-1 space-y-1.5 p-4 overflow-y-auto scrollbar-hidden">
-        {menuItems.map((item) => {
-          if (item.adminOnly && userRole !== Role.Admin) return null;
+        {items.map((item) => {
           const isActive = currentPath === item.path;
 
           return (
@@ -133,19 +147,24 @@ export const WorkspaceSidebar: React.FC<WorkspaceSidebarProps> = ({ currentPath,
 };
 
 export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ user, onLogout, children }) => {
-  const [currentPath, setCurrentPath] = useState<string>('dashboard');
+  const [selectedPath, setSelectedPath] = useState<string | null>(null);
 
   if (!user) {
     window.location.href = ROUTES.LOGIN;
     return null;
   }
 
+  // Only pages the token's role may open; a stale or forbidden selection falls back to the first allowed page
+  const allowedItems = getMenuItemsForRole(user.role);
+  const activeItem = allowedItems.find((item) => item.path === selectedPath) ?? allowedItems[0];
+  const ActivePage = activeItem?.page;
+
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-sky-50/50 font-sans antialiased text-sky-950">
       <WorkspaceSidebar
-        currentPath={currentPath}
-        onNavigate={setCurrentPath}
-        userRole={user.role}
+        currentPath={activeItem?.path ?? ''}
+        onNavigate={setSelectedPath}
+        items={allowedItems}
       />
 
       <div className="flex flex-1 flex-col min-w-0 h-full overflow-hidden">
@@ -155,29 +174,17 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ user, onLogout
           {children ? (
             children
           ) : (
-            <div className="w-full">
-              {currentPath === 'dashboard' && (
-                <div className="h-full w-full">
-                  <AdminDashboard />
+            <div className="h-full w-full">
+              {ActivePage ? (
+                <ActivePage />
+              ) : (
+                <div className="flex flex-col items-center justify-center py-24 text-center">
+                  <span className="material-symbols-outlined text-4xl text-sky-300">lock</span>
+                  <p className="mt-3 text-sm font-semibold text-sky-900">No workspace access</p>
+                  <p className="mt-1 text-xs text-sky-600/80">
+                    Your role ({user.role}) has no pages in this studio. Ask an admin for access.
+                  </p>
                 </div>
-              )}
-              {currentPath === 'effect-designer' && (
-                <EffectManagement />
-              )}
-              {currentPath === 'item-designer' && (
-                <ItemManagement />
-              )}
-              {currentPath === 'entity-designer' && (
-                <EntityManagement />
-              )}
-              {currentPath === 'room-designer' && (
-                <RoomManagement />
-              )}              
-              {currentPath === 'localization-designer' && (
-                <LocalizationManagement />
-              )}
-              {currentPath === 'definition-designer' && (
-                <DesignDefinitionManagement />
               )}
             </div>
           )}

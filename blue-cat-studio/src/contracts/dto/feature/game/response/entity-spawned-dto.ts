@@ -4,7 +4,7 @@
  */
 
 import type { EntityInstanceDTO } from "../../../runtime/entity-domain/entity-instance-dto";
-import type { Vector2 } from "./vector2";
+import type { Vector2 } from "../../../runtime/entity-domain/component/vector2";
 
 export interface EntitySpawnedDTO {
   entityInstance: EntityInstanceDTO;

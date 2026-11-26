@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useAdminRealtime } from '../../api/realtime/useAdminRealtime';
+import { useAdminRealtime } from '../../../api/realtime/useAdminRealtime';
 import { RoomList } from './RoomList';
 import { RoomDetail } from './RoomDetail';
 import { ActivityLog } from './ActivityLog';
 import { UserActiveList } from './UserActiveList';
-import type { TelemetryEventDTO } from '../../contracts/dto/feature/admin/response/telemetry-event-dto';
+import type { TelemetryEventDTO } from '../../../contracts/dto/feature/admin/response/telemetry-event-dto';
 
 export const AdminDashboard: React.FC = () => {
     const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null);

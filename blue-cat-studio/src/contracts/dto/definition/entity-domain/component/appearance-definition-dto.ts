@@ -4,7 +4,7 @@
  */
 
 import type { ComponentDefinitionDTO } from "../../../abstraction/component-definition-dto";
-import type { HSV } from "./hsv";
+import type { HSV } from "../../../runtime/entity-domain/component/hsv";
 
 export interface AppearanceDefinitionDTO extends ComponentDefinitionDTO {
   skinColor: HSV;

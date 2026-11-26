@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { ADMIN_QUERY_KEYS } from '../../api/hooks/useAdmin';
-import type { UserConnectionUI, UserSessionUI } from '../../api/realtime/useAdminRealtime';
+import { ADMIN_QUERY_KEYS } from '../../../api/hooks/useAdmin';
+import type { UserConnectionUI, UserSessionUI } from '../../../api/realtime/useAdminRealtime';
 
 export const UserActiveList: React.FC = () => {
     const { data: connections = [] } = useQuery<UserConnectionUI[]>({

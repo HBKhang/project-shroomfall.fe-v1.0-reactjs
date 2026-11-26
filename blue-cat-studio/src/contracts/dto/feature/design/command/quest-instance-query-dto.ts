@@ -3,7 +3,7 @@
  * Any changes made to this file can be lost when this file is regenerated.
  */
 
-import type { QuestType } from "./quest-type";
+import type { QuestType } from "../../../runtime/meta-domain/quest-type";
 
 export interface QuestInstanceQueryDTO {
   searchTerm?: string;
