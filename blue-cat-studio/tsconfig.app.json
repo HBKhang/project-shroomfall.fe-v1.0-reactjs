@@ -19,7 +19,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    /* TypeGen emits classes like HSV/Vector2 with uninitialized fields */
+    "strictPropertyInitialization": false
   },
   "include": ["src"]
 }

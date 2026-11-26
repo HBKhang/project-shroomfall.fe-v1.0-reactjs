@@ -1,4 +1,4 @@
-import type { ApiErrorDTO } from "../../../contracts/dto/common/api-error-dto";
+import type { ApiErrorDTO } from "../../../contracts/dto/abstraction/api-error-dto";
 
 export interface ToastEventData {
   id: string;

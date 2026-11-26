@@ -1,9 +1,4 @@
-import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { adminSignalRClient } from '../clients/adminSignalRClient';
-import { ADMIN_QUERY_KEYS } from '../hooks/useAdmin';
 import type { RoomStateChangedDTO } from '../../contracts/dto/feature/admin/response/room-state-changed-dto';
-import type { RoomSyncChangedDTO } from '../../contracts/dto/feature/admin/response/room-sync-changed-dto';
 import type { TelemetryEventDTO } from '../../contracts/dto/feature/admin/response/telemetry-event-dto';
 import type { UserSessionChangedDTO } from '../../contracts/dto/feature/admin/response/user-session-changed-dto';
 import type { UserConnectionChangedDTO } from '../../contracts/dto/feature/admin/response/user-connection-changed-dto';
@@ -26,9 +21,8 @@ export type ActivityEvent =
     | { type: 'STATE'; payload: RoomStateChangedDTO };
 
 export const useAdminRealtime = (
-    onActivity?: (event: ActivityEvent) => void
+    _onActivity?: (event: ActivityEvent) => void
 ) => {
-    const queryClient = useQueryClient();
 
     // useEffect(() => {
     //     const connection = adminSignalRClient.getConnection();
