@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { ROUTES } from '../../../constants/routes.constants';
-import { EffectManagement } from '../../game-designer-components/meta-management/EffectManagement/EffectManagement';
-import { ItemManagement } from '../../game-designer-components/meta-management/ItemManagement/ItemManagement';
-import { RoomManagement } from '../../game-designer-components/room-management/RoomManagement';
-import { EntityManagement } from '../../game-designer-components/entity-management/EntityManagement';
-import { LocalizationManagement } from '../../game-designer-components/localization-management/LocalizationManagement';
+import { EffectManagement } from '../../designer-components/meta-management/EffectManagement/EffectManagement';
+import { ItemManagement } from '../../designer-components/meta-management/ItemManagement/ItemManagement';
+import { RoomManagement } from '../../designer-components/room-management/RoomManagement';
+import { EntityManagement } from '../../designer-components/entity-management/EntityManagement';
+import { LocalizationManagement } from '../../designer-components/localization-management/LocalizationManagement';
 import { AdminDashboard } from '../../admin-components/dashboard/AdminDashboard';
-import { DesignDefinitionManagement } from '../../game-designer-components/versioning-management/DesignDefinitionManagement';
+import { DesignDefinitionManagement } from '../../designer-components/versioning-management/DesignDefinitionManagement';
 import { QuestManagement } from '../../game-master-components/quest-management/QuestManagement';
 import type { UserSession } from '../../../models/UserSession';
 import { Role } from '../../../contracts/enum/identity-domain/role';
