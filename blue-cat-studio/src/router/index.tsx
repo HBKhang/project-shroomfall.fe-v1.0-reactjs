@@ -4,6 +4,7 @@ import { WorkspacePage } from '../pages/WorkspacePage';
 import { ProtectedRoute } from './ProtectedRoute';
 import { ROUTES } from '../constants/routes.constants';
 import type { UserSession } from '../models/UserSession';
+import { Anonymous } from '../pages/Anonymous';
 
 interface RouterConfigProps {
   user: UserSession | null;
@@ -23,6 +24,14 @@ export const createAppRouter = ({ user, onLogout }: RouterConfigProps) => {
       ) : (
         <Navigate to={ROUTES.WORKSPACE} replace />
       ),
+    },
+    {
+      path: ROUTES.PAYMENT_SUCCESS,
+      element: <Anonymous transactionOutcome="success" />,
+    },
+    {
+      path: ROUTES.PAYMENT_FAILED,
+      element: <Anonymous transactionOutcome="failed" />,
     },
     {
       element: <ProtectedRoute isAllowed={!!user} />,
