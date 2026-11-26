@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment unsuccessful | Shroomfall</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="/payment/payment.css" />
+  </head>
+  <body>
+    <!-- Static PayOS cancel page: served by Vercel before the SPA rewrite, so no login is needed. -->
+    <main>
+      <section class="card failed">
+        <div class="brand"><span class="material-symbols-outlined">pets</span>SHROOMFALL</div>
+        <div class="icon"><span class="material-symbols-outlined">cancel</span></div>
+        <span class="badge">Failed</span>
+        <h1>Payment unsuccessful</h1>
+        <p>Your payment was cancelled or could not be completed. You can return to the game and try again.</p>
+        <button type="button" onclick="history.length > 1 && history.back()">
+          Return to game <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </section>
+    </main>
+  </body>
+</html>
